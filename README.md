@@ -1,6 +1,6 @@
 # TuyaCloud
 
-TuyaCloud is a small Ruby gem to allow control of smart devices connected to the [Tuya Cloud](https://en.tuya.com/), without the need to flash customer firmware or discover device keys.
+TuyaCloud is a small Ruby gem to allow control of smart devices connected to the [Tuya Cloud](https://en.tuya.com/), without the need to flash custom firmware or discover device keys.
 
 These devices are sold under many different brands internationally, and usually all have their own mobile apps (i.e. [Smart Life](https://play.google.com/store/apps/details?id=com.tuya.smartlife), [Tuya Smart](https://play.google.com/store/apps/details?id=com.tuya.smart) or [Genio](https://play.google.com/store/apps/details?id=com.mirabella.genio))
 

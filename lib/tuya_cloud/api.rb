@@ -31,6 +31,10 @@ module TuyaCloud
       devices
     end
 
+    def refresh_devices
+      discover_devices
+    end
+
     def find_device_by_id(id)
       discover_devices if devices.size.zero?
       devices.each { |device| return device if device.id == id }

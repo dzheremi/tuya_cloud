@@ -44,6 +44,8 @@ api.find_device_by_id(id)     # The ID of the device available within the Tuya a
 
 api.discover_devices          # Gets all of your devices
 api.devices                   # An array of all of your devices
+
+api.refresh_devices           # Refresh the states of all devices
 ```
 
 **Device status:**

@@ -13,22 +13,16 @@ Gem::Specification.new do |spec|
                        " without the need to flash customer firmware or discover device keys."
   spec.description   = <<-DESCEND
     TuyaCloud is a small Ruby gem to allow control of smart devices connected to the 
-    {Tuya Cloud}[https://en.tuya.com/], without the need to flash custom firmware or 
-    discover device keys.
+    Tuya Cloud, without the need to flash custom firmware or discover device keys.
     These devices are sold under many different brands internationally, and usually all have their own mobile
-    apps (i.e. {Smart Life}[https://play.google.com/store/apps/details?id=com.tuya.smartlife],
-    {Tuya Smart}[https://play.google.com/store/apps/details?id=com.tuya.smart] or 
-    {Genio}[https://play.google.com/store/apps/details?id=com.mirabella.genio])
-    If you're app looks something like the images 
-    {here}[https://iotrant.com/2019/06/07/smart-home-apps-volume-11-tuya-smart/], chances are this library will 
-    work for you.
-    This Ruby implementation was based on work by {PaulAnnekov}[https://github.com/PaulAnnekov/tuyaha], using an
-    endpoint specifically designed for {Home Assistant}[https://www.home-assistant.io/].
+    apps (i.e. Smart Life, Tuya Smart or Genio).
+    This Ruby implementation was based on work by PaulAnnekov (https://github.com/PaulAnnekov/tuyaha), using an
+    endpoint specifically designed for Home Assistant.
     The online devices which are supported at this stage are LED globes (white and colour) and mains switches,
     along with support for activating scenes you've created within the Tuya app.
   DESCEND
   spec.license       = "MIT"
-  
+
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
   spec.files         = Dir.chdir(File.expand_path('..', __FILE__)) do

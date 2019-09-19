@@ -8,6 +8,10 @@ RSpec.describe TuyaCloud do
         'smart_life'
       )
     }
+    let(:expired_connection) {
+      connection.auth.expire_time = Time.now - 60
+      connection
+    }
     let(:bad_user) {
       TuyaCloud::API.new(
         'test@bad.local',
@@ -28,12 +32,13 @@ RSpec.describe TuyaCloud do
 
     describe 'authorization' do
       it 'refreshes access token with the refresh token' do
-        connection.auth.refresh_access_token
-        expect(connection.auth.access_token).to match /ZZZZZZZZZZZZZZ/
+        expired_connection.auth.refresh_access_token
+        expect(expired_connection.auth.access_token).to match /ZZZZZZZZZZZZZZ/
       end
       it 'raises error if cannot refresh access token' do
-        connection.auth.refresh_access_token
-        expect { connection.auth.refresh_access_token }.to raise_error TuyaCloud::Error
+        expired_connection.auth.refresh_access_token
+        expired_connection.auth.expire_time = Time.now - 60
+        expect { expired_connection.auth.refresh_access_token }.to raise_error TuyaCloud::Error
       end
     end
 

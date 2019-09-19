@@ -86,7 +86,7 @@ module TuyaCloud
         unless response.is_a?(Net::HTTPOK)
           raise Error,
                 'invalid HTTP response from Tuya Cloud whilst trying to '\
-              'get access token'
+                'get access token'
         end
 
         json = JSON.parse(response.body)
@@ -94,6 +94,8 @@ module TuyaCloud
       end
 
       def refresh_access_token
+        return unless token_expired?
+
         uri = URI.parse("#{cloud_url}/homeassistant/access.do?grant_type=refresh_token&"\
                     "refresh_token=#{refresh_token}")
         response = Net::HTTP.get uri
@@ -115,7 +117,7 @@ module TuyaCloud
                json['expires_in']
           raise Error,
                 'invalid JSON response from Tuya Cloud whilst trying to '\
-              'get access token'
+                'get access token'
         end
 
         self.access_token = json['access_token']
@@ -128,6 +130,7 @@ module TuyaCloud
         raise ArgumentError unless name.is_a?(String) &&
                                    namespace.is_a?(String)
 
+        refresh_access_token
         header = {
           name: name,
           namespace: namespace,

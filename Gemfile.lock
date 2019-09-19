@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tuya_cloud (0.1.0)
+    tuya_cloud (0.1.2)
 
 GEM
   remote: https://rubygems.org/

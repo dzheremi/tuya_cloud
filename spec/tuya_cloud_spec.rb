@@ -191,6 +191,7 @@ RSpec.describe TuyaCloud do
           expect(tuya_color_light.controls.color.hue).to eq 0
           expect(tuya_color_light.controls.color.saturation).to eq 255
           expect(tuya_color_light.controls.color.brightness).to eq 255
+          expect(tuya_color_light.controls.color.rgb).to eq '#ff0000'
         end
         it 'raises an argument error with red value which is too high' do
           expect { tuya_color_light.controls.set_color(256, 0, 0) }.to raise_error(ArgumentError)

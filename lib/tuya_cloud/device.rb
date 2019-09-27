@@ -108,11 +108,11 @@ module TuyaCloud
 
       def set_color(red, green, blue)
         raise ArgumentError unless red.is_a?(Integer) &&
-                                   green.is_a?(Integer) &&
-                                   blue.is_a?(Integer)
+          green.is_a?(Integer) &&
+          blue.is_a?(Integer)
         raise ArgumentError if (red.negative? || red > 255) ||
-                               (green.negative? || green > 255) ||
-                               (blue.negative? || blue > 255)
+          (green.negative? || green > 255) ||
+          (blue.negative? || blue > 255)
 
         self.color_mode = 'colour'
         color.from_rgb(red, green, blue)
@@ -123,15 +123,41 @@ module TuyaCloud
       class ColorSetting
         attr_accessor :saturation,
                       :brightness,
-                      :hue
+                      :hue,
+                      :rgb
 
         def initialize(json)
           self.saturation = json['saturation']
           self.brightness = json['brightness']
           self.hue        = json['hue']
+          self.rgb        = from_hsb(hue, saturation, brightness)
+        end
+
+        # conversions from: https://gist.github.com/makevoid/3918299
+        def from_hsb(h, s, v)
+          h, s, v = h.to_f / 360, s.to_f / 100, v.to_f / 100
+          h_i = (h * 6).to_i
+          f = h * 6 - h_i
+          p = v * (1 - s)
+          q = v * (1 - f * s)
+          t = v * (1 - (1 - f) * s)
+          r, g, b = v, t, p if h_i == 0
+          r, g, b = q, v, p if h_i == 1
+          r, g, b = p, v, t if h_i == 2
+          r, g, b = p, q, v if h_i == 3
+          r, g, b = t, p, v if h_i == 4
+          r, g, b = v, p, q if h_i == 5
+          self.rgb = '#'\
+                     "#{(r * 255).round.to_s(16).rjust(2, '0')}"\
+                     "#{(g * 255).round.to_s(16).rjust(2, '0')}"\
+                     "#{(b * 255).round.to_s(16).rjust(2, '0')}"
         end
 
         def from_rgb(r, g, b)
+          self.rgb = '#'\
+                     "#{r.to_s(16).rjust(2, '0')}"\
+                     "#{g.to_s(16).rjust(2, '0')}"\
+                     "#{b.to_s(16).rjust(2, '0')}"
           r /= 255.0
           g /= 255.0
           b /= 255.0
@@ -162,7 +188,8 @@ module TuyaCloud
         def to_h
           { hue: hue,
             saturation: saturation,
-            brightness: brightness }
+            brightness: brightness,
+            rgb: rgb }
         end
       end
     end

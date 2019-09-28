@@ -82,6 +82,7 @@ module TuyaCloud
         raise ArgumentError unless value.is_a?(Integer)
         raise ArgumentError if value.negative? || value > 255
 
+        self.state = true
         process_request('brightnessSet', payload: { value: value })
         self.brightness = value
       end
@@ -98,6 +99,7 @@ module TuyaCloud
       end
 
       def set_white
+        self.state = true
         self.color_mode  = 'white'
         color.hue        = 0
         color.saturation = 0
@@ -114,6 +116,7 @@ module TuyaCloud
           (green.negative? || green > 255) ||
           (blue.negative? || blue > 255)
 
+        self.state = true
         self.color_mode = 'colour'
         color.from_rgb(red, green, blue)
         process_request('colorSet', payload: { color: color.to_h })

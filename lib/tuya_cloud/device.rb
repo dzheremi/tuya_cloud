@@ -130,6 +130,8 @@ module TuyaCloud
                       :rgb
 
         def initialize(json)
+          return unless json
+
           self.saturation = json['saturation']
           self.brightness = json['brightness']
           self.hue        = json['hue']
